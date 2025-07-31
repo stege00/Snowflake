@@ -33,6 +33,8 @@ document_tags table (Junction Table):
     document_id (INTEGER, FOREIGN KEY to documents.id)
 
     tag_id (INTEGER, FOREIGN KEY to tags.id)
+    INDEX document_id_idx (document_id),
+    INDEX tag_id_idx (tag_id)
 
 (A similar structure would be used for keywords.)
 
