@@ -1,0 +1,21 @@
+@startuml
+title Activity Diagram: Document Processing
+
+start
+:Watcher detects new file in 'Inbox';
+:Read file metadata (creation date, etc.);
+
+if (File meets sorting rules?) then (yes)
+  :Move file to dated folder;
+  :Update file path variable;
+else (no)
+endif
+
+:Extract text content from file;
+:Send text to Ollama for analysis;
+:Receive Summary, Keywords, Tags, Embedding;
+:Store all context and file path in ContextDB;
+:Push WebSocket update to notify UI;
+
+stop
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+actor "User" as user
+
+rectangle "Document & Image Sorting System" {
+  usecase "Browse Files & Folders" as UC1
+  usecase "View Document Context" as UC2
+  usecase "Search Files" as UC33
+  usecase "Search by Filename" as UC3
+  usecase "Search by Keyword/Tag" as UC4
+  usecase "Semantic Search" as UC5
+  usecase "View Clustered Documents" as UC6
+  usecase "Manage System Settings" as UC7
+}
+
+user -- UC1
+user -- UC2
+user -- UC33
+UC33 ..> UC4:includes
+UC33 ..> UC3:includes
+UC33 ..> UC5
+user -- UC6
+user -- UC7
+
+UC2 ..> UC1 : extends
+UC6 ..> UC2 : extends
+
+@enduml

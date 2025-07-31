@@ -1,0 +1,31 @@
+@startuml
+!theme plain
+
+title Component Diagram
+
+cloud "User's Browser" as Browser {
+  [Frontend Web App (JS, HTML, CSS)] as Frontend
+}
+
+node "NAS Docker Environment" as NAS {
+    database "ContextDB (SQLite)" as DB
+
+    package "Python Application" {
+        [Web Server & API (FastAPI)] as API
+        [Backend Engine (Watcher)] as Engine
+    }
+
+    package "AI Service" {
+        [Ollama] as Ollama
+    }
+}
+
+Frontend -right-> API : HTTP/API Calls\n(Search, Get Context)
+API -left-> Frontend : WebSocket Pushes\n(Real-time Updates)
+
+API -down-> DB : Reads/Writes
+Engine -down-> DB : Writes
+Engine -right-> Ollama : Analyzes Text
+API -up-> Engine : (Optional) Triggers Rescan
+
+@enduml

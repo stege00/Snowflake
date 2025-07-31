@@ -1,0 +1,27 @@
+@startuml
+title Sequence Diagram: User Clicks File
+
+actor User
+participant Frontend
+participant "API (FastAPI)" as API
+database "ContextDB" as DB
+
+User -> Frontend: Clicks on "MyReport.pdf"
+activate Frontend
+
+Frontend -> API: GET /api/context/path/to/MyReport.pdf
+activate API
+
+API -> DB: SELECT * FROM documents WHERE filepath=...
+activate DB
+
+DB --> API: Returns document context (summary, tags, etc.)
+deactivate DB
+
+API --> Frontend: 200 OK with JSON data
+deactivate API
+
+Frontend -> Frontend: Renders context in preview pane
+deactivate Frontend
+
+@enduml
